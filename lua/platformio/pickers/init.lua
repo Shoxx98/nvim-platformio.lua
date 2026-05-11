@@ -16,6 +16,11 @@ local function get_backend()
   if backend_name == 'telescope' then
     return load_backend('telescope') or load_backend('ui_select')
   end
+
+  if backend_name == 'ui_select' then
+    return load_backend('ui_select')
+  end
+
   return load_backend('telescope') or load_backend('ui_select')
 end
 
