@@ -91,7 +91,6 @@ vim.api.nvim_create_user_command('Piodebug', function()
   require('platformio.piodebug').piodebug()
 end, {})
 
-
 -- INFO: List ToggleTerminals
 vim.api.nvim_create_user_command('PioTermList', function()
   require('platformio.piotermlist').piotermlist()
