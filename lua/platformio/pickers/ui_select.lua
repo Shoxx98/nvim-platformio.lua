@@ -42,4 +42,21 @@ function M.pick_library(libraries, on_select)
   end)
 end
 
+function M.pick_terminal(terminals, on_select)
+  vim.ui.select(terminals, {
+    prompt = 'Select a PIO terminal window:',
+    kind = 'PioTerminals',
+    format_item = function(item)
+      local is_hidden = vim.api.nvim_buf_is_loaded(item.term.bufnr) and (vim.fn.bufwinid(item.term.bufnr) == -1)
+      return string.format('%d:%s (hidden: %s)', item.term.id, item.termtype, tostring(is_hidden))
+    end,
+  }, function(chosen)
+    if chosen then
+      on_select(chosen)
+    else
+      on_select(nil)
+    end
+  end)
+end
+
 return M

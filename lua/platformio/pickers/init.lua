@@ -51,4 +51,13 @@ function M.pick_library(libraries, on_select)
   backend.pick_library(libraries, on_select)
 end
 
+function M.pick_terminal(terminals, on_select)
+  local backend = get_backend()
+  if not backend then
+    vim.notify('No picker backend available for PlatformIO.', vim.log.levels.ERROR)
+    return
+  end
+  backend.pick_terminal(terminals, on_select)
+end
+
 return M

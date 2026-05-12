@@ -176,4 +176,36 @@ function M.pick_library(libraries, on_select)
     :find()
 end
 
+function M.pick_terminal(terminals, on_select)
+  local opts = {}
+  pickers
+    .new(opts, {
+      prompt_title = 'PIO terminals',
+      finder = finders.new_table({
+        results = terminals,
+        entry_maker = function(entry)
+          local is_hidden = vim.api.nvim_buf_is_loaded(entry.term.bufnr) and (vim.fn.bufwinid(entry.term.bufnr) == -1)
+          local label = string.format('%d:%s (hidden: %s)', entry.term.id, entry.termtype, tostring(is_hidden))
+          return {
+            value = entry,
+            display = label,
+            ordinal = label,
+          }
+        end,
+      }),
+      attach_mappings = function(prompt_bufnr, _)
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          if selection and selection.value then
+            on_select(selection.value)
+          end
+        end)
+        return true
+      end,
+      sorter = telescope_conf.generic_sorter(opts),
+    })
+    :find()
+end
+
 return M
