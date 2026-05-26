@@ -1,7 +1,7 @@
 local utils = require('platformio.utils')
 local M = {}
 
-function pioenv()
+function M.pioenv()
     if not utils.pio_install_check() then
         return
     end
