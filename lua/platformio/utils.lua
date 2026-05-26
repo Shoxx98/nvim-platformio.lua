@@ -412,7 +412,7 @@ function M.get_os_user_data_dir()
         os_dirname = 'LOCALAPPDATA'
     else
         path_separator = '/'
-        os_dirname = 'XDG_STATE_DIR'
+        os_dirname = 'XDG_STATE_HOME'
     end
     return os.getenv(os_dirname) .. path_separator .. 'nvim' .. path_separator .. 'nvim-platformio'
 end
